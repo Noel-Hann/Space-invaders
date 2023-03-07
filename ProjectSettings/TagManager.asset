@@ -3,7 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - playerBullet
+  - LeftWall
+  - RightWall
+  - Enemy
+  - enemy
+  - Deadly
+  - Enemy2
+  - Enemy3
+  - Enemy4
+  - BottomWall
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX

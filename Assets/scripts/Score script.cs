@@ -6,13 +6,18 @@ using UnityEngine;
 
 public class Scorescript : MonoBehaviour
 {
-    public int score = 0000;
+    public static int score = 0000;
     public string scoreText = "Score\n";
     private TextMeshProUGUI _tmpro;
 
     private void OnEnable()
     {
         Enemy.OnEnemyDestroyed += increaseScore;
+        Enemy.OnEnemy2Destroyed += increaseScoreBy20;
+        Enemy.OnEnemy3Destroyed += increaseScoreBy30;
+        Enemy.OnEnemy4Destroyed += increaseScoreBy40;
+        enemyManager.onLevelCleared += increaseScoreBy100;
+        Player.onPlayerDied += startNewGame;
     }
 
     // Start is called before the first frame update
@@ -37,8 +42,40 @@ public class Scorescript : MonoBehaviour
         _tmpro.text = formattedScore + score;
     }
 
+    //all these next methods are seperate because we need to call them with events
     void increaseScore()
     {
-        score += 10;
+        increaseScore(10);
+    }
+
+    void increaseScoreBy20()
+    {
+        increaseScore(20);
+    }
+
+    void increaseScoreBy30()
+    {
+        increaseScore(30);
+    }
+
+    void increaseScoreBy40()
+    {
+        increaseScore(40);
+    }
+    
+    void increaseScoreBy100()
+    {
+        increaseScore(100);
+    }
+    void increaseScore(int amount)
+    {
+        score += amount;
+    }
+
+    
+
+    private void startNewGame()
+    {
+        score = 0;
     }
 }
