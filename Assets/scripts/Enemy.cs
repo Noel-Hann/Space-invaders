@@ -105,7 +105,8 @@ public class Enemy : MonoBehaviour
         {
             myRigidBody.velocity = Vector2.right * enemyManager.enemySpeed;
         }
-
+        
+        //TODO fix this calculation, the more enemies there are the more often it should shoot
         int rng = Random.Range(1, (120 * enemyManager.enemyCount) );
         if (rng == 1)
         {
