@@ -35,7 +35,9 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        //GameObject.DontDestroyOnLoad(gameObject);
         myRigidBody = gameObject.GetComponent<Rigidbody2D>();
+        
     }
 
     private void OnEnable()
@@ -146,6 +148,8 @@ public class Enemy : MonoBehaviour
         onHitLeftWall -= changeDirectionToRight;
         onHitRightWall -= changeDirectionToLeft;
         Player.onPlayerDied -= refreshField;
+
+        
     }
 
     private void refreshField()

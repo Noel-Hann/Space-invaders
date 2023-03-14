@@ -9,6 +9,7 @@ public class Scorescript : MonoBehaviour
     public static int score = 0000;
     public string scoreText = "Score\n";
     private TextMeshProUGUI _tmpro;
+    
 
     private void OnEnable()
     {
@@ -17,7 +18,7 @@ public class Scorescript : MonoBehaviour
         Enemy.OnEnemy3Destroyed += increaseScoreBy30;
         Enemy.OnEnemy4Destroyed += increaseScoreBy40;
         enemyManager.onLevelCleared += increaseScoreBy100;
-        Player.onPlayerDied += startNewGame;
+        Player.onPlayerDied += reactToPlayerDeath;
     }
 
     // Start is called before the first frame update
@@ -72,7 +73,11 @@ public class Scorescript : MonoBehaviour
         score += amount;
     }
 
-    
+    void reactToPlayerDeath()
+    {
+        GameObject _switchScene = GameObject.Find("SwitchScene");
+        _switchScene.GetComponent<SwitchScenes>().LoadGameScene("Credits");
+    }
 
     private void startNewGame()
     {

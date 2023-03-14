@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -19,12 +20,14 @@ public class enemyManager : MonoBehaviour
     public int enemy2Rows;
     public int enemy3Rows;
     public int enemy4Rows;
-    
+
     public int enemyColumns;
     public float enemySpacing = 2.5f;
     public static int enemyCount = 0;
     public static float enemySpeed = 5f;
     public static int levelNumber = 1;
+
+    public int maxLevels = 1;
 
     public int remainingEnemies;
     
@@ -43,6 +46,8 @@ public class enemyManager : MonoBehaviour
     {
         //Debug.Log("Entered start function");
         //enemySpeed = 5;//we now do this in instantiateEnemies
+
+        
         instantiateEnemies();
         //Instantiate(enemy, enemies.transform.position,Quaternion.identity,enemies.transform);
     }
@@ -50,6 +55,7 @@ public class enemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //DontDestroyOnLoad(gameObject);
         remainingEnemies = enemyCount;
     }
 
@@ -133,6 +139,13 @@ public class enemyManager : MonoBehaviour
     public void nextLevel()
     {
         levelNumber++;
+        
+        if (levelNumber > maxLevels)
+        {
+            GameObject switchLevels = GameObject.Find("SwitchLevels");
+            switchLevels.GetComponent<SwitchScenes>().LoadGameScene("Credits");
+        }
+        
         instantiateEnemies();
     }
 
@@ -142,5 +155,13 @@ public class enemyManager : MonoBehaviour
         instantiateEnemies();
     }
 
-    
+    private void OnDestroy()
+    {
+        Enemy.OnEnemyDestroyed -= decrimentEnemies;
+        Enemy.OnEnemy2Destroyed -= decrimentEnemies;
+        Enemy.OnEnemy3Destroyed -= decrimentEnemies;
+        Enemy.OnEnemy4Destroyed -= decrimentEnemies;
+        onLevelCleared -= nextLevel;
+        Player.onPlayerDied -= newGame;
+    }
 }
